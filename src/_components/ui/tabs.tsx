@@ -1,53 +1,61 @@
+'use client'
+
 import * as RadixTabs from '@radix-ui/react-tabs'
-import { ShortBreak } from '../short-break'
-import { PomodoroTimer } from '../pomodoro-timer'
-import { LongBreak } from '../long-break'
 import Image from 'next/image'
+import { Timer } from '../timer'
+import { TABS } from '@/app/_constants/app'
+import { usePomodoro } from '@/_hooks/use-pomodoro'
+
+export type Step = 'pomodoro-timer' | 'short-break' | 'long-break'
 
 export function Tabs() {
+  const { handleTimerFinish, activeTab, setActiveTab } = usePomodoro()
+
   return (
     <RadixTabs.Root
       defaultValue="pomodoro-timer"
-      className="flex flex-col items-center gap-10 sm:gap-20 h-full"
+      value={activeTab}
+      onValueChange={(value) => setActiveTab(value as Step)}
+      className="flex h-full flex-col items-center gap-10 sm:gap-20"
     >
-      <RadixTabs.List className="w-full max-w-[373px] h-[63px] p-2 rounded-full bg-muted flex items-center text-foreground/40 z-10 relative">
-        <RadixTabs.Trigger
-          value="pomodoro-timer"
-          className="rounded-full data-[state=active]:bg-primary h-full w-[120px] text-center data-[state=active]:text-primary-foreground text-sm font-bold transition-colors data-[state=inactive]:hover:text-foreground"
-        >
-          pomodoro
-        </RadixTabs.Trigger>
-        <RadixTabs.Trigger
-          value="short-break"
-          className="rounded-full data-[state=active]:bg-primary h-full w-[120px] text-center data-[state=active]:text-primary-foreground text-sm font-bold transition-colors data-[state=inactive]:hover:text-foreground"
-        >
-          short break
-        </RadixTabs.Trigger>
-        <RadixTabs.Trigger
-          value="long-break"
-          className="rounded-full data-[state=active]:bg-primary h-full w-[120px] text-center data-[state=active]:text-primary-foreground text-sm font-bold transition-colors data-[state=inactive]:hover:text-foreground"
-        >
-          long break
-        </RadixTabs.Trigger>
+      <RadixTabs.List className="relative z-10 flex h-[63px] w-full max-w-[373px] items-center rounded-full bg-muted p-2 text-foreground/40">
+        {TABS.map((tab) => (
+          <RadixTabs.Trigger
+            key={tab.value}
+            value={tab.value}
+            className="h-full w-[120px] rounded-full text-center text-sm font-bold transition-colors data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=inactive]:hover:text-foreground"
+          >
+            {tab.label}
+          </RadixTabs.Trigger>
+        ))}
       </RadixTabs.List>
 
-      <RadixTabs.Content
-        value="pomodoro-timer"
-        className="flex-1 w-full grid place-items-center"
-      >
-        <PomodoroTimer />
-      </RadixTabs.Content>
+      {TABS.map((tab) => {
+        const timeByStepMap = {
+          'pomodoro-timer': 0.05,
+          'short-break': 0.05,
+          'long-break': 0.05,
+        }
 
-      <RadixTabs.Content value="short-break">
-        <ShortBreak />
-      </RadixTabs.Content>
+        const timeByStap = timeByStepMap[tab.value as Step]
 
-      <RadixTabs.Content value="long-break">
-        <LongBreak />
-      </RadixTabs.Content>
+        return (
+          <RadixTabs.Content
+            key={tab.value}
+            value={tab.value}
+            className="data-[state=active]:grid data-[state=active]:w-full data-[state=active]:flex-1 data-[state=active]:place-items-center"
+          >
+            <Timer
+              timeInMinutes={timeByStap}
+              onTimerFinish={handleTimerFinish}
+              step={tab.value as Step}
+            />
+          </RadixTabs.Content>
+        )
+      })}
 
       <div className="pb-6 sm:pb-32">
-        <button className="size-7 relative opacity-50 hover:opacity-100 transition-opacity">
+        <button className="relative size-7 opacity-50 transition-opacity hover:opacity-100">
           <span className="sr-only">Open settings</span>
           <Image src="icon-settings.svg" alt="" fill />
         </button>
