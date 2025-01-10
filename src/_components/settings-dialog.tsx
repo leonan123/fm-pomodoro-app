@@ -53,9 +53,9 @@ export function SettingsDialog() {
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-10 bg-[#0A0C1C] opacity-50" />
+      <Dialog.Overlay className="fixed inset-0 z-10 bg-black/40 data-[state=closed]:animate-overlay-hide data-[state=open]:animate-overlay-show" />
 
-      <Dialog.Content className="fixed left-1/2 top-1/2 z-20 w-full max-w-[540px] -translate-x-1/2 -translate-y-1/2 transform rounded-3xl bg-white pb-16 pt-8 text-secondary-foreground">
+      <Dialog.Content className="fixed left-1/2 top-1/2 z-20 w-full max-w-[540px] -translate-x-1/2 -translate-y-1/2 transform rounded-3xl bg-white pb-16 pt-8 text-secondary-foreground data-[state=closed]:animate-hide-dialog data-[state=open]:animate-show-dialog">
         <div className="flex items-center justify-between px-10">
           <Dialog.Title className="text-3xl font-bold">Settings</Dialog.Title>
 
