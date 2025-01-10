@@ -20,13 +20,13 @@ export const spaceMono = Space_Mono({
 })
 
 export const THEME_COLORS = {
-  'red-variant': '0, 91%, 71%',
+  'red-variant': '0 91% 71%',
   'blue-variant': '182 91% 71%',
   'purple-variant': '284 89% 74%',
 }
 
 export const THEME_FONTS = {
-  kumbhSans: kumbhSans.variable,
-  robotoSlab: robotoSlab.variable,
-  spaceMono: spaceMono.variable,
+  'kumbh-sans': kumbhSans.variable,
+  'roboto-slab': robotoSlab.variable,
+  'space-mono': spaceMono.variable,
 }

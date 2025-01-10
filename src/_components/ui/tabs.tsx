@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { Timer } from '../timer'
 import { TABS } from '@/app/_constants/app'
 import { usePomodoro } from '@/_hooks/use-pomodoro'
+import * as Dialog from '@radix-ui/react-dialog'
+import { SettingsDialog } from '../settings-dialog'
 
 export type Step = 'pomodoro-timer' | 'short-break' | 'long-break'
 
@@ -55,10 +57,16 @@ export function Tabs() {
       })}
 
       <div className="pb-6 sm:pb-32">
-        <button className="relative size-7 opacity-50 transition-opacity hover:opacity-100">
-          <span className="sr-only">Open settings</span>
-          <Image src="icon-settings.svg" alt="" fill />
-        </button>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <button className="relative size-7 opacity-50 transition-opacity hover:opacity-100">
+              <span className="sr-only">Open settings</span>
+              <Image src="icon-settings.svg" alt="Open settings" fill />
+            </button>
+          </Dialog.Trigger>
+
+          <SettingsDialog />
+        </Dialog.Root>
       </div>
     </RadixTabs.Root>
   )

@@ -8,16 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'hsla(var(--background))',
-        foreground: 'hsla(var(--foreground))',
-        primary: 'hsla(var(--primary))',
-        'primary-foreground': 'hsla(var(--primary-foreground))',
-        muted: 'hsla(var(--muted))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: 'hsl(var(--primary))',
+        'primary-foreground': 'hsl(var(--primary-foreground))',
+        muted: 'hsl(var(--muted))',
+        'secondary-foreground': 'hsl(var(--secondary-foreground))',
       },
 
       backgroundImage: {
         progress:
-          'radial-gradient(closest-side, hsla(var(--muted)) 85%, transparent 80% 100%), conic-gradient(hsla(var(--primary)) 75%, transparent 0);',
+          'radial-gradient(closest-side, hsl(var(--muted)) 85%, transparent 80% 100%), conic-gradient(hsl(var(--primary)) 75%, transparent 0);',
       },
 
       fontFamily: {

@@ -19,7 +19,6 @@ export function Timer({
 }: TimerProps) {
   const [timerInSeconds, setTimerInSeconds] = useState(timeInMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
-  const audioRef = useRef<HTMLAudioElement>(null)
 
   function handleToggleTimer() {
     setIsRunning((prevIsRunning) => {
@@ -59,12 +58,6 @@ export function Timer({
 
   return (
     <div className="progress-container relative aspect-square max-h-[480px] w-11/12 max-w-[480px] flex-1 rounded-full p-4">
-      <audio
-        src="/interface-hint-notification-911.wav"
-        ref={audioRef}
-        className="hidden"
-      />
-
       <svg
         className="-rotate-90 rounded-full bg-muted p-1"
         viewBox="0 0 100 100"
