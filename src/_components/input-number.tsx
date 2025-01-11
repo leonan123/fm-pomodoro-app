@@ -10,28 +10,29 @@ export function InputNumber({
   value,
   ...props
 }: InputNumberProps) {
-  const [inputValue, setInputValue] = useState<number>(Number(value) || 0)
+  const [inputValue, setInputValue] = useState<string>(String(value))
 
   function handleButtonClick(type: 'increase' | 'decrease') {
     if (type === 'increase') {
-      setInputValue((prev) => prev + 1)
+      setInputValue((prev) => String(+prev + 1))
     } else {
-      setInputValue((prev) => (prev - 1 === 0 ? 0 : prev - 1))
+      setInputValue((prev) => (+prev - 1 === 0 ? '0' : String(+prev - 1)))
     }
   }
 
   useEffect(() => {
-    onValueChange?.(inputValue)
+    onValueChange?.(Number(inputValue))
   }, [inputValue])
 
   return (
     <div className="flex h-12 w-full appearance-none items-center justify-center px-4">
       <input
         type="number"
+        min={1}
         className="size-full bg-transparent text-sm font-bold outline-none"
-        value={inputValue}
-        onChange={(e) => setInputValue(Number(e.target.value))}
         {...props}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
 
       <div className="flex flex-col items-center gap-1">

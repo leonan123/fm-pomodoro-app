@@ -97,10 +97,11 @@ export function SettingsDialog({
                   <Controller
                     control={control}
                     name="timer.pomodoroTime"
-                    render={({ field }) => (
+                    render={({ field: { onChange, value, ...field } }) => (
                       <InputNumber
                         {...field}
-                        onValueChange={(value) => field.onChange(value)}
+                        value={value}
+                        onValueChange={(value) => onChange(value)}
                       />
                     )}
                   />
