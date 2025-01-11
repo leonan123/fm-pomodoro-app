@@ -21,33 +21,45 @@ const settingsFormSchema = z.object({
   }),
 })
 
-type SettingsForm = z.infer<typeof settingsFormSchema>
+export type SettingsForm = z.infer<typeof settingsFormSchema>
 
-export function SettingsDialog() {
+interface SettingsDialogProps {
+  onAppSettingsSubmit: (values: SettingsForm) => void
+  defaultValues?: SettingsForm
+}
+
+export function SettingsDialog({
+  onAppSettingsSubmit,
+  defaultValues,
+}: SettingsDialogProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   const { register, control, handleSubmit } = useForm<SettingsForm>({
     resolver: zodResolver(settingsFormSchema),
-    defaultValues: {
+    defaultValues: defaultValues || {
       timer: {
         pomodoroTime: 25,
         shortBreakTime: 5,
         longBreakTime: 15,
       },
       theme: {
-        font: THEME_FONTS['kumbh-sans'],
+        font: Object.keys(THEME_FONTS)[0],
         color: Object.keys(THEME_COLORS)[0],
       },
     },
   })
 
-  function onSettingsSubmit(values: SettingsForm) {
-    document.documentElement.className = values.theme.color
+  function changeTheme(theme: SettingsForm['theme']) {
+    document.documentElement.className = theme.color
     document.documentElement.style.setProperty(
       '--font-base',
-      `var(--font-${values.theme.font})`,
+      `var(--font-${theme.font})`,
     )
+  }
 
+  function onSettingsSubmit(values: SettingsForm) {
+    changeTheme(values.theme)
+    onAppSettingsSubmit(values)
     closeButtonRef.current?.click()
   }
 

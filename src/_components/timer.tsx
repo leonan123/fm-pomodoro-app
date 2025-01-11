@@ -1,7 +1,7 @@
 'use client'
 
 import { calculatePercentage, secondsToMinutes } from '@/_utils/timer'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Step } from './ui/tabs'
 
 interface TimerProps {
@@ -17,6 +17,7 @@ export function Timer({
   onTimerStart,
   timeInMinutes,
 }: TimerProps) {
+  console.log(timeInMinutes)
   const [timerInSeconds, setTimerInSeconds] = useState(timeInMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
 
@@ -54,6 +55,13 @@ export function Timer({
     document.title = `${secondsToMinutes(timerInSeconds)} - pomodoro`
   }, [timerInSeconds])
 
+  useEffect(() => {
+    if (timeInMinutes !== timerInSeconds / 60) {
+      setTimerInSeconds(timeInMinutes * 60)
+    }
+  }, [timeInMinutes])
+
+  console.log('timerInSeconds', timerInSeconds)
   const percentage = calculatePercentage(timerInSeconds, timeInMinutes * 60)
 
   return (

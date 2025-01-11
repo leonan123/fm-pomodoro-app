@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="red-variant">
+    <html lang="en">
       <body className={Object.values(THEME_FONTS).join(' ')}>{children}</body>
     </html>
   )
