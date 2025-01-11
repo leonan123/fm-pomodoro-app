@@ -20,7 +20,7 @@ export function TimerSkeleton() {
       </svg>
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="h-[100px] w-[300px] animate-pulse rounded-lg bg-background text-center text-8xl font-bold"></div>
+        <div className="h-[95px] w-[300px] animate-pulse rounded-lg bg-background text-center text-8xl font-bold"></div>
 
         <div className="flex gap-4">
           <button className="mt-2 w-full text-center font-bold tracking-[15px] transition-colors hover:text-primary">
