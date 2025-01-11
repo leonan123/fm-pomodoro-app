@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { setAppFont, THEME_FONTS } from './_constants/theme'
+import { THEME_FONTS } from './_constants/theme'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import { FontProvider } from '@/_providers/font-provider'
@@ -14,15 +14,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  if (typeof window !== 'undefined') {
-    const storedAppSetings = localStorage.getItem('pomodoro-app@appSetings')
-
-    if (storedAppSetings) {
-      const parsedAppSetings = JSON.parse(storedAppSetings)
-      setAppFont(parsedAppSetings.theme.font)
-    }
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <FontProvider />
