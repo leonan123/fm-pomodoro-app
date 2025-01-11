@@ -29,8 +29,8 @@ Your users should be able to:
 
 ### Links
 
-- Solution URL: [Solution](https://www.frontendmentor.io/solutions/interactive-card-details-murFxRkOLK)
-- Live Site URL: [Live site](https://leonan123.github.io/fm-interactive-card-details/)
+- Solution URL: [Solution](https://www.frontendmentor.io/solutions/pomodoro-app-with-nextjs-KUGjVAsArH)
+- Live Site URL: [Live site](https://fm-pomodoro-app-one.vercel.app/)
 
 ### Built with
 
