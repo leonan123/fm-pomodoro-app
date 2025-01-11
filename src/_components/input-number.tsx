@@ -28,7 +28,7 @@ export function InputNumber({
     <div className="flex h-12 w-full appearance-none items-center justify-center px-4">
       <input
         type="number"
-        className="size-full text-sm font-bold outline-none"
+        className="size-full bg-transparent text-sm font-bold outline-none"
         value={inputValue}
         onChange={(e) => setInputValue(Number(e.target.value))}
         {...props}

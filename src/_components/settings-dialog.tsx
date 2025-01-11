@@ -49,16 +49,7 @@ export function SettingsDialog({
     },
   })
 
-  function changeTheme(theme: SettingsForm['theme']) {
-    document.documentElement.className = theme.color
-    document.documentElement.style.setProperty(
-      '--font-base',
-      `var(--font-${theme.font})`,
-    )
-  }
-
   function onSettingsSubmit(values: SettingsForm) {
-    changeTheme(values.theme)
     onAppSettingsSubmit(values)
     closeButtonRef.current?.click()
   }
@@ -70,9 +61,11 @@ export function SettingsDialog({
       <Dialog.Content className="fixed left-1/2 top-1/2 z-20 w-full max-w-[540px] -translate-x-1/2 -translate-y-1/2 transform rounded-3xl bg-white pb-16 pt-8 text-secondary-foreground data-[state=closed]:animate-hide-dialog data-[state=open]:animate-show-dialog">
         <div className="flex items-center justify-between px-10">
           <Dialog.Title className="text-3xl font-bold">Settings</Dialog.Title>
-
+          <Dialog.Description className="sr-only">
+            Select your preferred timer length and theme.
+          </Dialog.Description>
           <Dialog.Close
-            className="relative size-4 opacity-60 transition-opacity hover:opacity-100"
+            className="relative size-4 select-none opacity-60 transition-opacity hover:opacity-100"
             ref={closeButtonRef}
           >
             <span className="sr-only">Close settings</span>
@@ -188,10 +181,8 @@ export function SettingsDialog({
                 {Object.keys(THEME_COLORS).map((key) => (
                   <label
                     key={key}
-                    className={`${key} group flex size-10 cursor-pointer items-center justify-center rounded-full bg-primary transition-colors hover:bg-primary/75 hover:has-[input:checked]:bg-primary`}
-                    style={{
-                      fontFamily: `var(--font-${key})`,
-                    }}
+                    data-theme={key}
+                    className={`group flex size-10 cursor-pointer items-center justify-center rounded-full bg-primary transition-colors hover:bg-primary/75 hover:has-[input:checked]:bg-primary`}
                   >
                     <input
                       type="radio"

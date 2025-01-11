@@ -32,10 +32,9 @@ export const THEME_FONTS = {
   'space-mono': spaceMono.variable,
 }
 
-export function changeTheme(theme: SettingsForm['theme']) {
-  document.documentElement.className = theme.color
+export function setAppFont(font: SettingsForm['theme']['font']) {
   document.documentElement.style.setProperty(
     '--font-base',
-    `var(--font-${theme.font})`,
+    `var(--font-${font})`,
   )
 }

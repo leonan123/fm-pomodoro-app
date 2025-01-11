@@ -17,7 +17,6 @@ export function Timer({
   onTimerStart,
   timeInMinutes,
 }: TimerProps) {
-  console.log(timeInMinutes)
   const [timerInSeconds, setTimerInSeconds] = useState(timeInMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
 
@@ -61,7 +60,6 @@ export function Timer({
     }
   }, [timeInMinutes])
 
-  console.log('timerInSeconds', timerInSeconds)
   const percentage = calculatePercentage(timerInSeconds, timeInMinutes * 60)
 
   return (
@@ -85,23 +83,23 @@ export function Timer({
       </svg>
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <h2 className="text-center text-8xl font-bold">
+        <h2 className="text-center text-6xl font-bold sm:text-8xl">
           {secondsToMinutes(timerInSeconds)}
         </h2>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 text-xs sm:text-base">
           <button
             onClick={handleToggleTimer}
-            className="mt-2 w-full text-center font-bold tracking-[15px] transition-colors hover:text-primary"
+            className="mt-2 w-full text-center font-bold tracking-[4px] transition-colors hover:text-primary sm:tracking-[15px]"
           >
             {isRunning ? 'PAUSE' : 'START'}
           </button>
 
-          <span className="mt-2 text-4xl leading-none">|</span>
+          <span className="mt-2 text-xl leading-none sm:text-4xl">|</span>
 
           <button
             onClick={resetTimer}
-            className="ml-4 mt-2 w-full text-center font-bold tracking-[15px] transition-colors hover:text-primary"
+            className="ml-1 mt-2 w-full text-center font-bold tracking-[4px] transition-colors hover:text-primary sm:ml-4 sm:tracking-[15px]"
           >
             RESET
           </button>

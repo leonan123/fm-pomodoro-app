@@ -1,10 +1,12 @@
 import type { SettingsForm } from '@/_components/settings-dialog'
 import type { Step } from '@/_components/ui/tabs'
 import { playNotification } from '@/_utils/notification'
-import { changeTheme, THEME_COLORS, THEME_FONTS } from '@/app/_constants/theme'
+import { setAppFont, THEME_FONTS } from '@/app/_constants/theme'
+import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
 export function usePomodoro() {
+  const { theme, setTheme } = useTheme()
   const [cycle, setCyle] = useState<Step[]>([])
   const [activeTab, setActiveTab] = useState<Step>('pomodoro-timer')
   const [appSetings, setAppSetings] = useState<SettingsForm>(() => {
@@ -13,7 +15,8 @@ export function usePomodoro() {
 
       if (storedAppSetings) {
         const parsedAppSetings = JSON.parse(storedAppSetings)
-        changeTheme(parsedAppSetings.theme)
+
+        setAppFont(parsedAppSetings.theme.font)
         return JSON.parse(storedAppSetings)
       }
     }
@@ -26,7 +29,7 @@ export function usePomodoro() {
       },
       theme: {
         font: Object.keys(THEME_FONTS)[0],
-        color: Object.keys(THEME_COLORS)[0],
+        color: theme,
       },
     }
   })
@@ -38,6 +41,8 @@ export function usePomodoro() {
 
   function handleAppSetingsChange(values: SettingsForm) {
     setAppSetings(values)
+    setTheme(values.theme.color)
+    setAppFont(values.theme.font)
     localStorage.setItem('pomodoro-app@appSetings', JSON.stringify(values))
   }
 
